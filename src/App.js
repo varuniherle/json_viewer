@@ -70,6 +70,7 @@ const App = () => {
       transition: 'all 0.3s ease-in-out'
     }} 
     >
+      <h1>Json Viewer</h1>
       {error && <Alert variant="danger">{error}</Alert>}
       <Controls onExport={handleExport} theme={theme} toggleTheme={toggleTheme} />
       <Row>
@@ -80,6 +81,7 @@ const App = () => {
           <JsonTree data={parsedJson} />
         </Col>
       </Row>
+      <p className="p-3">Note: This is a simple JSON viewer.  It is not a full JSON editor.It is not optimized for mobile devices.</p>
     </Container>
   );
 };

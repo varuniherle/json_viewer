@@ -5,8 +5,8 @@ const JsonTree = ({ data, label = 'root' }) => {
 
   if (typeof data !== 'object' || data === null) {
     return (
-      <div className="ms-3">
-        <strong>{label}:</strong> <span className="text-info">{String(data)}</span>
+      <div className="ms-3 text-dark">
+        <strong>{label}:</strong> <span >{String(data)}</span>
       </div>
     );
   }
@@ -19,7 +19,7 @@ const JsonTree = ({ data, label = 'root' }) => {
       {label !== 'root' && (
         <div
           onClick={() => setCollapsed(!collapsed)}
-          className="cursor-pointer text-info fw-semibold mb-1"
+          className="cursor-pointer text-dark fw-semibold mb-1"
           style={{ cursor: 'pointer' }}
         >
           ▶ {label} {collapsed ? '[+]' : '[-]'}
