@@ -1,32 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import JsonInput from './components/JsonInput';
 import JsonTree from './components/JsonTree';
 import Controls from './components/Controls';
 
 const App = () => {
-  const [jsonText, setJsonText] = useState(`{
-  "name": "Alice",
-  "age": 28,
-  "isStudent": false,
-  "skills": ["JavaScript", "Python"],
-  "address": {
-    "city": "London",
-    "zip": null
-  }
-}`);
+  const [jsonText, setJsonText] = useState();
   const [parsedJson, setParsedJson] = useState({});
   const [error, setError] = useState('');
   const [theme, setTheme] = useState('dark');
 
   const handleJsonChange = (text) => {
     setJsonText(text);
+    if (!text.trim()) {
+      setParsedJson(null);
+      setError('');
+      return;
+    }
+  
     try {
       const parsed = JSON.parse(text);
       setParsedJson(parsed);
       setError('');
     } catch (e) {
-      setError('Invalid JSON: ' + e.message);
+        setError('Invalid JSON: ' + e.message);
     }
   };
 
@@ -49,18 +46,30 @@ const App = () => {
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
-
-  const themeClasses = theme === 'dark'
-  ? 'bg-dark text-white'
-  : 'bg-light text-dark';
-
-
-const opacityStyle = {
-  backgroundColor: theme === 'dark' ? 'rgba(33, 37, 41, 0.95)' : 'rgba(248, 249, 250, 0.95)',
-};
+  const themeStyles = {
+    dark: {
+      backgroundColor: 'rgba(0,0,0,0.95)',
+      color: '#aad2ff',
+    },
+    light: {
+      backgroundColor: 'rgba(240,240,240,0.9)',
+      color: '#212529',
+    }
+  };
+  
+  
+  const currentThemeStyle = themeStyles[theme];
+  
 
   return (
-    <Container fluid className={`min-vh-100 p-4 ${themeClasses}`} style={opacityStyle}>
+    <Container fluid
+    className="min-vh-100 p-4"
+    style={{
+      ...currentThemeStyle,
+      fontFamily: '"Courier New", Courier, monospace',
+      transition: 'all 0.3s ease-in-out'
+    }} 
+    >
       {error && <Alert variant="danger">{error}</Alert>}
       <Controls onExport={handleExport} theme={theme} toggleTheme={toggleTheme} />
       <Row>

@@ -1,0 +1,10 @@
+/* Dark theme placeholder color */
+.placeholder-dark::placeholder {
+    color: #888;
+  }
+  
+  /* Light theme placeholder color */
+  .placeholder-light::placeholder {
+    color: #444;
+  }
+  

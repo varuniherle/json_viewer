@@ -15,14 +15,16 @@ const JsonTree = ({ data, label = 'root' }) => {
   const entries = Object.entries(data);
 
   return (
-    <div className="ms-3">
-      <div
-        onClick={() => setCollapsed(!collapsed)}
-        className="cursor-pointer text-warning"
-        style={{ cursor: 'pointer' }}
-      >
-        ▶ {label} {collapsed ? '[+]' : '[-]'}
-      </div>
+    <div className="ms-3 rounded p-2">
+      {label !== 'root' && (
+        <div
+          onClick={() => setCollapsed(!collapsed)}
+          className="cursor-pointer text-info fw-semibold mb-1"
+          style={{ cursor: 'pointer' }}
+        >
+          ▶ {label} {collapsed ? '[+]' : '[-]'}
+        </div>
+      )}
       {!collapsed && (
         <div className="ms-4">
           {entries.map(([key, value], index) => (
@@ -34,4 +36,19 @@ const JsonTree = ({ data, label = 'root' }) => {
   );
 };
 
-export default JsonTree;
+export default function JsonTreeContainer({ data }) {
+  return (
+    <div
+      style={{
+        backgroundColor: '#fff',
+        border: '1px solid #ced4da',
+        borderRadius: 4,
+        height: 'calc(1.5em * 20 + 16px)', // 20 rows * line height + padding
+        overflowY: 'auto',
+        whiteSpace: 'pre-wrap',
+      }}
+    >
+      <JsonTree data={data} />
+    </div>
+  );
+}
